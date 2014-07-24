@@ -91,4 +91,5 @@ void MainWindow::on_copyFIle_clicked()
     qDebug()<<resList[index].absoluteFilePath();
     qDebug()<<myDir.absolutePath();
     QFile::copy(resList[index].absoluteFilePath(),myDir.absolutePath()+"/"+resList[index].fileName());
+    QMessageBox::warning(this,"文件拷贝成功","当前语音消息已拷贝至"+myDir.absolutePath()+"中！请用文件管理器查看！");
 }

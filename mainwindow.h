@@ -8,6 +8,8 @@
 #include<QDateTime>
 #include<QStandardItemModel>
 #include<QFile>
+#include<QMessageBox>
+
 namespace Ui {
 class MainWindow;
 }
