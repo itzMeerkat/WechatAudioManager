@@ -3,13 +3,11 @@
 
 #include <QMainWindow>
 #include <QDir>
-#include<QFile>
 #include<QFileInfo>
 #include<QFileInfoList>
-#include<QLabel>
 #include<QDateTime>
-#include<algorithm>
-
+#include<QStandardItemModel>
+#include<QFile>
 namespace Ui {
 class MainWindow;
 }
@@ -25,9 +23,12 @@ public:
 private slots:
     void on_findFile_clicked();
 
+    void on_copyFIle_clicked();
+
 private:
     Ui::MainWindow *ui;
-    QStringList resList;
+    QFileInfoList resList;
+    QStandardItemModel *model = new QStandardItemModel;
     void findFile(QString path);
 };
 
