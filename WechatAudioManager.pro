@@ -20,7 +20,7 @@ HEADERS  += \
     backend.h \
     audiofileitem.h
 
-FORMS    += mainwindow.ui
+FORMS    +=
 
 CONFIG += mobility
 MOBILITY = 
