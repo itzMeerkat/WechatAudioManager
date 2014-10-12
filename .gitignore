@@ -34,3 +34,12 @@ Icon
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
+
+
+android/
+./mainwindow.h
+./mainwindow.cpp
+./mainwindow.ui
+*.user
+*.user.*
+android/res/drawable-hdpi/icon.png

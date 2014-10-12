@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia
+QT       += core gui multimedia quick
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,9 +13,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+    backend.cpp \
+    audiofileitem.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += \
+    backend.h \
+    audiofileitem.h
 
 FORMS    += mainwindow.ui
 
@@ -25,5 +28,9 @@ MOBILITY =
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 OTHER_FILES += \
-    android/AndroidManifest.xml
+    android/AndroidManifest.xml \
+    MainUI.qml
+
+RESOURCES += \
+    source.qrc
 
