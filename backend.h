@@ -6,7 +6,8 @@
 #include <QFileInfo>
 #include <QFileInfoList>
 #include <QDateTime>
-#include<audiofileitem.h>
+#include <audiofileitem.h>
+#include <QMediaPlayer>
 
 class Backend : public QObject
 {
@@ -19,12 +20,13 @@ public:
 signals:
 
 private:
-
+    QMediaPlayer *player;
     QFileInfoList resList;
     void findFile(QString);
 
 public slots:
     void searchAudioFile();
+    void playSound(QString ind);
 
 };
 

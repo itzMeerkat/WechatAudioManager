@@ -6,7 +6,8 @@ Backend::Backend(QObject *parent) :
     QObject(parent)
 {
     AFIM=new AudioFileInfoModel();
-    AFIM->addAudioFileInfo(AudioFileInfo("Hello!","World!"));
+    AFIM->addAudioFileInfo(AudioFileInfo("Hello!","World!",0));
+    player=new QMediaPlayer();
 }
 
 void Backend::findFile(QString path)
@@ -32,30 +33,48 @@ inline bool compare(QFileInfo a,QFileInfo b)
 
 void Backend::searchAudioFile()
 {
-    QDir dir("D:/sdcard/tencent/MicroMsg");
-    QFileInfoList sdCardList=dir.entryInfoList(QDir::NoDotAndDotDot|QDir::Dirs);
+    QDir dir("/sdcard/tencent/MicroMsg");
+    QFileInfoList firstLevel,sdCardList=dir.entryInfoList(QDir::NoDotAndDotDot|QDir::Dirs);
 
-    int index,len=0;
+    int len=10;
     for(int i=0;i<sdCardList.size();i++)
     {
         if(sdCardList[i].fileName().size()>len)
         {
-            len=sdCardList[i].fileName().size();
-            index=i;
+            firstLevel.append(sdCardList[i]);
         }
     }
-    dir.setPath(dir.absolutePath()+"/"+sdCardList[index].fileName());
+
+    for(int j=0;j<firstLevel.size();j++)
+    {
+    dir.setPath(dir.absolutePath()+"/"+firstLevel[j].fileName());
     sdCardList=dir.entryInfoList(QStringList("voice*"));
     for(int i=0;i<sdCardList.size();i++)
     {
         findFile(dir.absolutePath()+"/"+sdCardList[i].fileName());
+    }
     }
     qSort(resList.begin(),resList.end(),compare);
 
 
     for(int i=0;i<resList.size();i++)
     {
-        qDebug()<<"!";
-        AFIM->addAudioFileInfo(AudioFileInfo("Coming soon.",resList[i].created().toString().mid(3,14)));
+        //qDebug()<<"!";
+        AFIM->addAudioFileInfo(AudioFileInfo("Coming soon.",resList[i].created().toString().mid(3,14),i+1));
     }
+}
+
+void Backend::playSound(QString ind)
+{
+    if(player->state()==QMediaPlayer::PlayingState)
+    {
+        player->stop();
+    }
+    else
+    {
+        player->setMedia(QUrl::fromLocalFile(resList[ind.toInt()-1].absoluteFilePath()));
+        player->setVolume(100);
+        player->play();
+    }
+    //qDebug()<<ind;
 }

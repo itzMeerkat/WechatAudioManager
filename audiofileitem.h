@@ -1,20 +1,19 @@
 #include <QAbstractListModel>
 #include <QStringList>
 
-//![0]
 class AudioFileInfo
 {
 public:
-    AudioFileInfo(const QString &tduringTime, const QString &tcreatedTime);
-//![0]
+    AudioFileInfo(const QString &tduringTime, const QString &tcreatedTime, int trank);
 
     QString getDuringTime() const;
     QString getCreatedTime() const;
+    QString getRank() const;
 
 private:
     QString duringTime;
     QString createdTime;
-//![1]
+    QString rank;
 };
 
 class AudioFileInfoModel : public QAbstractListModel
@@ -23,11 +22,11 @@ class AudioFileInfoModel : public QAbstractListModel
 public:
     enum AudioFileInfoRoles {
         DuringTimeRole = Qt::UserRole + 1,
-        CreatedTimeRole
+        CreatedTimeRole,
+        RankRole
     };
 
     AudioFileInfoModel(QObject *parent = 0);
-//![1]
 
     void addAudioFileInfo(const AudioFileInfo &aFileInfo);
 
@@ -39,8 +38,6 @@ protected:
     QHash<int, QByteArray> roleNames() const;
 private:
     QList<AudioFileInfo> fileInfoList;
-//![2]
 };
-//![2]
 
 

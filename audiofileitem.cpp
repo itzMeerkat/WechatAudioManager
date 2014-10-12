@@ -1,7 +1,7 @@
 #include "audiofileitem.h"
 
-AudioFileInfo::AudioFileInfo(const QString &tduringTime, const QString &tcreatedTime)
-    : duringTime(tduringTime), createdTime(tcreatedTime)
+AudioFileInfo::AudioFileInfo(const QString &tduringTime, const QString &tcreatedTime, int trank)
+    : duringTime(tduringTime), createdTime(tcreatedTime), rank(QString::number(trank))
 {
 }
 
@@ -13,6 +13,11 @@ QString AudioFileInfo::getCreatedTime() const
 QString AudioFileInfo::getDuringTime() const
 {
     return duringTime;
+}
+
+QString AudioFileInfo::getRank() const
+{
+    return rank;
 }
 
 AudioFileInfoModel::AudioFileInfoModel(QObject *parent)
@@ -41,6 +46,8 @@ QVariant AudioFileInfoModel::data(const QModelIndex & index, int role) const {
         return fileInfo.getCreatedTime();
     else if (role == DuringTimeRole)
         return fileInfo.getDuringTime();
+    else if (role == RankRole)
+        return fileInfo.getRank();
     return QVariant();
 }
 
@@ -49,6 +56,7 @@ QHash<int, QByteArray> AudioFileInfoModel::roleNames() const {
     QHash<int, QByteArray> roles;
     roles[DuringTimeRole] = "duringTime";
     roles[CreatedTimeRole] = "createdTime";
+    roles[RankRole]="rank";
     return roles;
 }
 //![0]

@@ -11,7 +11,26 @@ Rectangle {
         x:0
         y:0
         model:AFIM
-        delegate: Text { text: duringTime + ", " + createdTime }
+        delegate: Rectangle{
+            width:listview.width
+            height:RootHeight/10
+            Text {
+                id:fd
+                x:0
+                text: duringTime
+            }
+            Text{
+                x:fd.width+50
+                text:createdTime
+            }
+            color: "yellow"
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    backend.playSound(rank)
+                }
+            }
+        }
     }
     Rectangle{
         id:searchButton
