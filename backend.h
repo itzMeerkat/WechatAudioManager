@@ -8,6 +8,8 @@
 #include <QDateTime>
 #include <audiofileitem.h>
 #include <QMediaPlayer>
+#include <QQueue>
+#include <QMessageBox>
 
 class Backend : public QObject
 {
@@ -23,11 +25,18 @@ private:
     QMediaPlayer *player;
     QFileInfoList resList;
     void findFile(QString);
+    bool flag;
+    QQueue<int> q;
+    QString t;
+    int ind;
+    void addItems();
+    void reqDuration(int);
 
 public slots:
     void searchAudioFile();
     void playSound(QString ind);
-
+    void getDuration(qint64);
+    void copyFile(QString);
 };
 
 #endif // BACKEND_H

@@ -5,9 +5,12 @@
 Backend::Backend(QObject *parent) :
     QObject(parent)
 {
+    flag=false;
+    ind=0;
     AFIM=new AudioFileInfoModel();
-    AFIM->addAudioFileInfo(AudioFileInfo("Hello!","World!",0));
+    AFIM->addAudioFileInfo(AudioFileInfo("时长 ","创建日期",0));
     player=new QMediaPlayer();
+    connect(player,SIGNAL(durationChanged(qint64)),this,SLOT(getDuration(qint64)),Qt::DirectConnection);
 }
 
 void Backend::findFile(QString path)
@@ -33,6 +36,9 @@ inline bool compare(QFileInfo a,QFileInfo b)
 
 void Backend::searchAudioFile()
 {
+    resList.clear();
+
+    flag=false;
     QDir dir("/sdcard/tencent/MicroMsg");
     QFileInfoList firstLevel,sdCardList=dir.entryInfoList(QDir::NoDotAndDotDot|QDir::Dirs);
 
@@ -56,16 +62,12 @@ void Backend::searchAudioFile()
     }
     qSort(resList.begin(),resList.end(),compare);
 
-
-    for(int i=0;i<resList.size();i++)
-    {
-        //qDebug()<<"!";
-        AFIM->addAudioFileInfo(AudioFileInfo("Coming soon.",resList[i].created().toString().mid(3,14),i+1));
-    }
+    reqDuration(ind);
 }
 
 void Backend::playSound(QString ind)
 {
+    flag=true;
     if(player->state()==QMediaPlayer::PlayingState)
     {
         player->stop();
@@ -76,5 +78,55 @@ void Backend::playSound(QString ind)
         player->setVolume(100);
         player->play();
     }
-    //qDebug()<<ind;
+}
+
+void Backend::getDuration(qint64 d)
+{
+    if(flag==false && d!=0)
+    {
+        if((d/100)%10>=5)
+            q.push_back(d/1000+1);
+        else
+            q.push_back(d/1000);
+        ind++;
+        reqDuration(ind);
+    }
+}
+
+void Backend::reqDuration(int index)
+{
+    if(index>=resList.size())
+    {
+        addItems();
+        return;
+    }
+    player->setMedia(QUrl::fromLocalFile(resList[index].absoluteFilePath()));
+    player->duration();
+    return;
+}
+
+void Backend::addItems()
+{
+    ind=0;
+    while(!q.empty())
+    {
+        if(q.front()<10) t="0"+QString::number(q.front());
+        else t=QString::number(q.front());
+        q.pop_front();
+        AFIM->addAudioFileInfo(AudioFileInfo(t+"秒",resList[ind].created().toString("mm月yy年 hh:mm:ss"),ind+1));
+        ind++;
+    }
+}
+
+void Backend::copyFile(QString ind)
+{
+    qDebug()<<"!!!";
+    int index=ind.toInt()-1;
+    QDir myDir("D:/sdcard/");
+    if(!QDir(myDir.absolutePath()+"WeChatAudioManager").exists())
+        myDir.mkdir("WeChatAudioManager");
+    myDir.setPath("/sdcard/WeChatAudioManager/");
+
+    QFile::copy(resList[index].absoluteFilePath(),myDir.absolutePath()+"/"+resList[index].fileName());
+    //QMessageBox::warning(this,"文件拷贝成功","当前语音消息已拷贝至"+myDir.absolutePath()+"中！请用文件管理器查看！");
 }
