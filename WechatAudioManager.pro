@@ -28,8 +28,7 @@ MOBILITY =
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 OTHER_FILES += \
-    android/AndroidManifest.xml \
-    MainUI.qml
+    android/AndroidManifest.xml
 
 RESOURCES += \
     source.qrc

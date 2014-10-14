@@ -8,7 +8,7 @@ Backend::Backend(QObject *parent) :
     flag=false;
     ind=0;
     AFIM=new AudioFileInfoModel();
-    AFIM->addAudioFileInfo(AudioFileInfo("时长 ","创建日期",0));
+    //AFIM->addAudioFileInfo(AudioFileInfo("时长 ","创建日期",0));
     player=new QMediaPlayer();
     connect(player,SIGNAL(durationChanged(qint64)),this,SLOT(getDuration(qint64)),Qt::DirectConnection);
 }
@@ -113,7 +113,7 @@ void Backend::addItems()
         if(q.front()<10) t="0"+QString::number(q.front());
         else t=QString::number(q.front());
         q.pop_front();
-        AFIM->addAudioFileInfo(AudioFileInfo(t+"秒",resList[ind].created().toString("mm月yy年 hh:mm:ss"),ind+1));
+        AFIM->addAudioFileInfo(AudioFileInfo(t+"秒",resList[ind].created().toString("MM月dd日 hh:mm:ss"),ind+1));
         ind++;
     }
 }
@@ -122,11 +122,11 @@ void Backend::copyFile(QString ind)
 {
     qDebug()<<"!!!";
     int index=ind.toInt()-1;
-    QDir myDir("D:/sdcard/");
+    QDir myDir("/sdcard/");
     if(!QDir(myDir.absolutePath()+"WeChatAudioManager").exists())
         myDir.mkdir("WeChatAudioManager");
     myDir.setPath("/sdcard/WeChatAudioManager/");
 
     QFile::copy(resList[index].absoluteFilePath(),myDir.absolutePath()+"/"+resList[index].fileName());
-    //QMessageBox::warning(this,"文件拷贝成功","当前语音消息已拷贝至"+myDir.absolutePath()+"中！请用文件管理器查看！");
+    //QMessageBox::information(0,"文件拷贝成功","当前语音消息已拷贝至"+myDir.absolutePath()+"中！请用文件管理器查看！",QMessageBox::Yes);
 }

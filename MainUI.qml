@@ -4,13 +4,15 @@ Rectangle {
     width:RootWidth
     height:RootHeight
     id:root;
+
+
     ListView{
         id:listview
         width:parent.width
-        height:parent.height/8*7
+        height:parent.height/4*3
+        y:parent.height/8
 
         x:0
-        y:0
         model:AFIM
         delegate: Rectangle{
             width:listview.width
@@ -137,7 +139,7 @@ Rectangle {
             text:"设置"
             color: "white"
             font.family: "微软雅黑"
-            font.bold: true
+            //font.bold: true
             verticalAlignment: Text.AlignVCenter
             font.pointSize: 15
             styleColor: "#ffffff"
@@ -150,6 +152,36 @@ Rectangle {
             onReleased: {
                 parent.color="#007DC7"
             }
+        }
+    }
+
+    Rectangle{
+        width:parent.width
+        height:parent.height/8
+        color:"lightblue"
+        Text{
+            height: parent.height
+            width:parent.width/2
+            text:"持续时间"
+            font.family: "微软雅黑"
+            font.bold: true
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+
+            font.pointSize: 19
+            color: "purple"
+        }
+        Text{
+            height: parent.height
+            width:parent.width/2
+            x:parent.width/2
+            text:"创建时间"
+            font.family: "微软雅黑"
+            font.bold: true
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.pointSize: 19
+            color: "purple"
         }
     }
 }
