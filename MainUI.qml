@@ -3,15 +3,15 @@ import QtQuick 2.0
 Rectangle {
     width:RootWidth
     height:RootHeight
-    id:root;
-
+    id:root
 
     ListView{
         id:listview
+        property int px
+        property int py
         width:parent.width
         height:parent.height/4*3
         y:parent.height/8
-
         x:0
         model:AFIM
         delegate: Rectangle{
@@ -62,6 +62,7 @@ Rectangle {
                 }
             }
 
+
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
@@ -70,6 +71,28 @@ Rectangle {
             }
         }
     }
+
+    /*MouseArea{
+        id:ma
+        width:parent.width
+        height:parent.height/4*3
+        y:parent.height/8
+        onPressed: {
+            listview.px=ma.mouseX
+            listview.py=ma.mouseY
+        }
+        onReleased: {
+            console.log(listview.px-ma.mouseX)
+            if(listview.px-ma.mouseX>RootWidth/5){
+                backend.slide(0)
+            }
+            if(ma.mouseX-listview.px>RootWidth/5){
+                backend.slide(1)
+            }
+        }
+    }*/
+
+
 
     Rectangle{
         id:searchButton
@@ -127,6 +150,7 @@ Rectangle {
             }
         }
     }
+
     Rectangle{
         id:shareButton
         width:parent.width/3
@@ -152,9 +176,13 @@ Rectangle {
             onReleased: {
                 parent.color="#007DC7"
             }
+            onClicked: {
+                settingsView.visible=!settingsView.visible
+            }
         }
     }
 
+    //Header banner
     Rectangle{
         width:parent.width
         height:parent.height/8
@@ -183,5 +211,11 @@ Rectangle {
             font.pointSize: 19
             color: "purple"
         }
+    }
+
+    Loader{
+        id:settingsView
+        source: "qrc:/Settings.qml"
+        visible: false
     }
 }

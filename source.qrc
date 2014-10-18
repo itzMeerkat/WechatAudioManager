@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>MainUI.qml</file>
         <file>icon/ticon.png</file>
+        <file>Settings.qml</file>
     </qresource>
 </RCC>
