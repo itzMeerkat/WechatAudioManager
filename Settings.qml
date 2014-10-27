@@ -5,6 +5,10 @@ Rectangle {
     y:RootHeight/6
     width: RootWidth/3*2
     height: RootHeight/3*2
+    Image{
+        anchors.fill: parent
+        source: "file:/我的图片/背景/542675ef69401b74f6b0fb3e.jpg"
+    }
     Text{
         anchors.centerIn: parent
         width:parent.width/5*4
@@ -16,5 +20,4 @@ Rectangle {
         wrapMode: Text.Wrap
         font.pointSize: 13
     }
-    color:"red"
 }

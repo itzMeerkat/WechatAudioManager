@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title></title>
+        <style>
+            body{margin:0;background:#ccc;}
+            a{cursor:pointer;}
+        </style>
+    </head>
+    <body>
+        <!--<input type="button" value="点击测试手机系统" onclick="dom.phoneType()" />
+        <div>
+            <p>调用函数phoneType(),返回数字</p>
+            <p>1代表ios机子</p>
+            <p>2代表android机子</p>
+            <p>3代表非ios于android机子</p>
+            <br />
+            <p>例如在javascript中调用:</p>
+            <p>var number = phoneType();</p>
+            <p>number为1时为ios机子</p>
+        </div>
+        <div class="wrapper">
+            <div class="blue"></div>
+            <div class="red"></div>
+            <div class="yellow"></div>
+            <div class="green"></div>
+        </div>-->
+        <script src="js/zepto.js"></script>
+        <script>
+            /**
+             *  =phoneType
+             *  @about 获取手机系统
+             *
+             *  @return  {number} 1==ios 2==android 3==其他
+             */
+            function phoneType() {
+                if(!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+                    return 1;
+                }
+                else if(/(Android)/i.test(navigator.userAgent)) {
+                    return 2;
+                }
+                return 3;
+            }
+        </script>
+        <script>
+
+            // =data
+            var Data = [
+                {
+                    type : 1,
+                    id : '6341',
+                    url : 'http://s.ymapp.com/26',
+                    src : 'images/1.jpg',
+                    support : 1 //1代表支持ios机子
+                },
+                {
+                    type : 2,
+                    id : '6338',
+                    url : 'http://s.ymapp.com/1R',
+                    src : 'images/2.jpg',
+                    support : 2 //2代表支持安卓机子
+                },
+                {
+                    type : 2,
+                    id : '6338',
+                    url : 'http://s.ymapp.com/1R',
+                    src : 'images/2.jpg',
+                    support : 3 //3代表支持除安卓跟ios外的其他机子
+                },
+                {
+                    type : 3,
+                    id : '1111',
+                    //url : 'http://static.youmi.net/files/app/87/app-1108187.apk',
+                    url : 'http://d1.apk8.com:8020/wangyou/刀塔传奇.apk',
+                    src : 'images/3.jpg',
+                    support : 4 //4代表安卓跟ios都支持
+                }
+            ]
+        </script>
+        <script>
+            function Model() {
+
+            }
+            // =modelpage
+            function modelPage(data) {
+
+                var d = data;
+                this.getType = function() {
+                    return d.type;
+                }
+                this.getId = function() {
+                    return d.id;
+                }
+                this.getUrl = function() {
+                    return d.url;
+                }
+                this.getSrc = function() {
+                    return d.src;
+                }
+                this.getSupport = function() {
+                    return d.support;
+                }
+
+                this.setType = function(type) {
+                    d.type = type;
+                }
+                this.setId = function(id) {
+                    d.id = id;
+                }
+                this.setUrl = function(url) {
+                    d.url = url;
+                }
+                this.setSrc = function(src) {
+                    d.src = src;
+                }
+            }
+
+            // =modelapp
+            function modelApp(data) {
+
+                var d = data;
+                this.getType = function() {
+                    return d.type;
+                }
+                this.getId = function() {
+                    return d.id;
+                }
+                this.getUrl = function() {
+                    return d.url;
+                }
+                this.getSrc = function() {
+                    return d.src;
+                }
+                this.getSupport = function() {
+                    return d.support;
+                }
+
+                this.setType = function(type) {
+                    d.type = type;
+                }
+                this.setId = function(id) {
+                    d.id = id;
+                }
+                this.setUrl = function(url) {
+                    d.url = url;
+                }
+                this.setSrc = function(src) {
+                    d.src = src;
+                }
+            }
+
+        </script>
+        <script>
+            // =control
+            function Control(_view) {
+                var view = _view,
+                    model;
+
+                var public = {
+                    getView : function() {
+                        return view;
+                    },
+                    setModel : function(_model) {
+                        model = _model;
+                        view.setModel(model);
+                    }
+                }
+
+                return public;
+            }
+        </script>
+        <script>
+            // =viewpage
+            function viewPage() {
+                var html = $('<div><a><img /></a></div>');
+
+                var public = {
+                    getHtml : function() {
+                        return html;
+                    },
+                    setModel : function(model) {
+                        var url;
+                        if(typeof WeixinJSBridge !== 'undefined') {
+                            url = 'http://mp.weixin.qq.com/mp/redirect?url=' + model.getUrl()+ '#weixin.qq.com#wechat_redirect';
+                        }
+                        else {
+                            url = model.getUrl();
+                        }
+                        html.find('a').attr({'id': model.getId(), 'href': url, 'class': 'ad', 'target': '_blank'}).css({display: 'none'});
+                        html.find('img').attr('src', model.getSrc()).css({width: '100%',height:'50px'})
+                    }
+                }
+
+                return public;
+            }
+
+            // =viewapp
+            function viewApp() {
+                var html = $('<div><a><img /></a></div>');
+
+                var public = {
+                    getHtml : function() {
+                        return html;    
+                    },
+                    setModel : function(model) {
+                        var url;
+                        if(typeof WeixinJSBridge !== 'undefined') {
+                            url = 'http://mp.weixin.qq.com/mp/redirect?url=' + model.getUrl()+ '#weixin.qq.com#wechat_redirect';
+                        }
+                        else {
+                            url = model.getUrl();
+                        }
+                        html.find('a').attr({'id': model.getId(), 'href': url, 'class': 'ad', 'target': '_blank'}).css({display: 'none'});
+                        html.find('img').attr('src', model.getSrc()).css({width: '100%',height:window.innerHeight})
+                        //console.log(html.find('div'));    
+                    }   
+                }
+
+                return public;
+            }
+
+            // =viewDown
+            function viewDown() {
+                var html = $('<div><a><img /></a></div>');
+
+                var public = {
+                    getHtml : function() {
+                        return html;    
+                    },
+                    setModel : function(model) {
+                        var url;
+                        if(typeof WeixinJSBridge !== 'undefined') {
+                            //http://static.youmi.net/files/app/87/app-1108187.apk
+                            //http%3A%2F%2Fstatic.youmi.net%2Ffiles%2Fapp%2F87%2Fapp-1108187.apk
+                            //http://mp.weixin.qq.com/mp/redirect?url=http://static.youmi.net/files/app/87/app-1108187.apk#weixin.qq.com#wechat_redirect
+                            //http://mp.weixin.qq.com/mp/redirect?url=http%3A%2F%2Fstatic.youmi.net%2Ffiles%2Fapp%2F87%2Fapp-1108187.apk#weixin.qq.com#wechat_redirect
+                            //url = 'http://mp.weixin.qq.com/mp/redirect?url=' + encodeURIComponent(model.getUrl()) + '#weixin.qq.com#wechat_redirect';
+                            //url = 'http://mp.weixin.qq.com/mp/redirect?url=http://static.youmi.net/files/app/87/app-1108187.apk#weixin.qq.com#wechat_redirect'
+                            url = 'http://mp.weixin.qq.com/mp/redirect?url=' + encodeURIComponent(model.getUrl()) + '#weixin.qq.com#wechat_redirect';
+                        }
+                        else {
+                            url = model.getUrl();
+                        }
+                        html.find('a').attr({'id': model.getId(), 'href': url, 'class': 'ad'}).css({display: 'none'});
+                        html.find('img').attr('src', model.getSrc()).css({width: '100%',height:window.innerHeight})
+                        //console.log(html.find('div'));    
+                    }   
+                }
+
+                return public;
+            }
+
+
+        </script>
+        <script type="text/javascript">
+
+
+            // =dom
+            var dom = {
+                bind : function(fn, context) {
+                    return function() {
+                        fn.apply(context, Array.prototype.slice.call(arguments));   
+                    };
+                },
+                phoneType : function() {
+                    if(!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+                    //if(/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+                        //alert('ios');
+                        return 1;
+                    }
+                    else if(/(Android)/i.test(navigator.userAgent)) {
+                        //alert('android');
+                        return 2;
+                    }
+                    return 3;
+                }
+            },
+            phonetype = dom.phoneType();
+
+            //function openUrl(obj, type) {
+            //    var win = window,
+            //        $obj = $(obj),
+            //        url = obj.getAttribute('data-href'),
+            //        isWx = typeof WeixinJSBridge === 'undefined';
+
+            //    switch(type) {
+            //        case 1:
+            //        case 2: 
+            //        case 3: {
+
+            //            if( isWx ) {
+            //                win.open(url);
+            //            } 
+            //            else {
+            //                document.location.href = 'http://mp.weixin.qq.com/mp/redirect?url=' + url + '#weixin.qq.com#wechat_redirect';
+            //            }
+
+            //            break;
+            //        }
+            //    }
+            //}
+
+            // =banner
+            function Banner() {
+                
+                this.default = {
+                    insertNode : 'body',
+                    width : '100%',
+                    height : window.innerHeight,
+                    position : 'fixed',
+                    bottom : 0
+                }
+
+                this.AD = [];
+                this.len = this.AD.length;
+
+                this.init = function(options) {
+
+                    $.extend(this.default, options);
+
+                    var def = this.default
+                        that = this;
+                    def.insertNode = typeof def.insertNode === 'string' ? $(def.insertNode) : def.insertNode;
+
+                    this.createHtml();
+                    setTimeout(function() {
+                        that.getAd(dom.bind(that.handleAd, that));
+                    },2000)
+                    this.play();
+                    //this.getAd(this.handleAd);
+                }
+
+            }
+            Banner.prototype = {
+
+                constructor : Banner,
+
+                createHtml : function() {
+                    var def = this.default,
+                        doc = document,
+                        div  = doc.createElement('div');
+
+                    div.id = 'banner';
+                    div.style.cssText = 'width:' + def.width + ';height:' + def.height + ';position:' + def.position + ';bottom:' + def.bottom;
+                    def.insertNode.append(div);
+                },
+
+                getAd : function(callback) {
+                    setTimeout(function() {
+                        var data = Data;
+                        callback(data);
+                    },100); 
+                },
+
+                handleAd : function(data) {
+                    //console.log(this)
+                    var that = this,
+                        len = data.length,
+                        $banner = $('#banner');
+
+                    for(var i = 0; i < len; i++) {
+                        if(data[i].type === 1) {
+                            //console.log('1');
+                            var modelpage = new modelPage(data[i]),
+                                control = new Control(new viewPage());
+
+                            control.setModel(modelpage);
+                            //console.log(modelpage.getSupport(),phonetype);
+                            if(modelpage.getSupport() === phonetype || modelpage.getSupport() === 4) {
+                                that.AD.push(control.getView().getHtml().html());
+                            }
+                            //$banner.append(control.getView().getHtml());
+                            //console.log(control.getView().getHtml().html());
+                        }   
+                        else if(data[i].type === 2) {
+                            //console.log('2');
+                            var modelapp = new modelApp(data[i]),
+                                control = new Control(new viewApp());
+
+                            control.setModel(modelapp);
+                            //console.log(modelapp.getSupport(),phonetype);
+                            if(modelapp.getSupport() === phonetype || modelapp.getSupport() === 4) {
+                                that.AD.push(control.getView().getHtml().html());
+                            }
+                            //$banner.append(control.getView().getHtml());
+                            //var modelapp = new modelApp(data[i]); 
+                        }
+                        else if(data[i].type === 3) {
+                            var modelapp = new modelApp(data[i]),
+                                control = new Control(new viewDown());
+                            control.setModel(modelapp);
+                            //console.log(modelapp.getSupport(),phonetype);
+                            if(modelapp.getSupport() === phonetype || modelapp.getSupport() === 4) {
+                                that.AD.push(control.getView().getHtml().html());
+                            }
+                        }
+                    }
+
+                    that.len = that.AD.length;
+                    $banner.append(that.AD.join(''));
+                    that.run(0);
+                    //console.log(that.len);
+                    //setTimeout(function(){that.len = 5},5000)
+                },
+
+                play : function() {
+                    var that = this,
+                        _timer,
+                        current = 1;
+                    _timer = setInterval(function() {
+                        if(current >= that.len) {
+                            current = 0;
+                        }
+                        that.run(current);
+                        current++;
+                    },2000);//修改3000   动态   
+                },
+
+                run : function(index) {
+                    //console.log(index);   
+                    //console.log($('.ad'))
+                    $('.ad').each(function(i) {
+                        if(i === index) {
+                            //console.log(this.style)
+                            this.style.display = "block";   
+                        }
+                        else {
+                            this.style.display = "none";    
+                            //this.eq(i).css({'display': 'none'});  
+                        }
+                    })
+                }
+
+            }
+
+
+            var banner = new Banner();
+            banner.init({
+                insertNode : 'body',
+                width : '100%',
+                height : window.innerHeight,
+                position : 'fixed',
+                bottom : 0
+            });
+        </script>
+    </body>
+</html>

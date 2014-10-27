@@ -1,4 +1,6 @@
-import QtQuick 2.0
+import QtQuick 2.2
+import QtQuick.Controls 1.2
+import QtWebKit 3.0
 
 Rectangle {
     width:RootWidth
@@ -10,8 +12,8 @@ Rectangle {
         property int px
         property int py
         width:parent.width
-        height:parent.height/4*3
-        y:parent.height/8
+        height:parent.height/36*23
+        y:parent.height/9
         x:0
         model:AFIM
         delegate: Rectangle{
@@ -72,33 +74,11 @@ Rectangle {
         }
     }
 
-    /*MouseArea{
-        id:ma
-        width:parent.width
-        height:parent.height/4*3
-        y:parent.height/8
-        onPressed: {
-            listview.px=ma.mouseX
-            listview.py=ma.mouseY
-        }
-        onReleased: {
-            console.log(listview.px-ma.mouseX)
-            if(listview.px-ma.mouseX>RootWidth/5){
-                backend.slide(0)
-            }
-            if(ma.mouseX-listview.px>RootWidth/5){
-                backend.slide(1)
-            }
-        }
-    }*/
-
-
-
     Rectangle{
         id:searchButton
         width:parent.width/3
         height:parent.height/8
-        y:parent.height/8*7
+        y:parent.height/4*3
         color:"#007DC7"
         MouseArea{
             anchors.fill: parent
@@ -127,7 +107,7 @@ Rectangle {
         id:copyButton
         width:parent.width/3
         height:parent.height/8
-        y:parent.height/8*7
+        y:parent.height/4*3
         x:parent.width/3
         color: "#007DC7"
         Text{
@@ -152,10 +132,10 @@ Rectangle {
     }
 
     Rectangle{
-        id:shareButton
+        id:settingButton
         width:parent.width/3
         height:parent.height/8
-        y:parent.height/8*7
+        y:parent.height/4*3
         x:parent.width/3*2
         color: "#007DC7"
         Text{
@@ -163,7 +143,7 @@ Rectangle {
             text:"设置"
             color: "white"
             font.family: "微软雅黑"
-            //font.bold: true
+            font.bold: true
             verticalAlignment: Text.AlignVCenter
             font.pointSize: 15
             styleColor: "#ffffff"
@@ -185,7 +165,7 @@ Rectangle {
     //Header banner
     Rectangle{
         width:parent.width
-        height:parent.height/8
+        height:parent.height/9
         color:"lightblue"
         Text{
             height: parent.height
@@ -218,4 +198,30 @@ Rectangle {
         source: "qrc:/Settings.qml"
         visible: false
     }
+
+    WebView {
+        id: webview
+        width: parent.width
+        height:RootHeight/8
+        y:RootHeight/8*7
+        url: "file:/GitHub-pro/WechatAudioManager/banner.html"
+        //anchors.fill: parent
+        onNavigationRequested: {
+        // detect URL scheme prefix, most likely an external link
+            var schemaRE = /^\w+:/;
+            if (schemaRE.test(request.url)) {
+                request.action = WebView.AcceptRequest;
+            } else {
+                request.action = WebView.IgnoreRequest;
+                // delegate request.url here
+            }
+        }
+    }
+    /*MouseArea{
+        z:50
+        anchors.fill: parent
+        onClicked: {
+            advBanner.url="./a.html"
+        }
+    }*/
 }
