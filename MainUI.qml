@@ -1,6 +1,6 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.2
-import QtWebKit 3.0
+//import QtWebKit 3.0
 
 Rectangle {
     width:RootWidth
@@ -52,7 +52,7 @@ Rectangle {
                 x:parent.width-parent.height
                 Image{
                     anchors.fill: parent
-                    source: "qrc:/icon/ticon.png"
+                    source: "qrc:/icon/copy.png"
                 }
 
                 MouseArea{
@@ -76,7 +76,7 @@ Rectangle {
 
     Rectangle{
         id:searchButton
-        width:parent.width/3
+        width:parent.width/2
         height:parent.height/8
         y:parent.height/4*3
         color:"#007DC7"
@@ -103,7 +103,7 @@ Rectangle {
             styleColor: "#ffffff"
         }
     }
-    Rectangle{
+    /*Rectangle{
         id:copyButton
         width:parent.width/3
         height:parent.height/8
@@ -129,14 +129,14 @@ Rectangle {
                 parent.color="#007DC7"
             }
         }
-    }
+    }*/
 
     Rectangle{
         id:settingButton
-        width:parent.width/3
+        width:parent.width/2
         height:parent.height/8
         y:parent.height/4*3
-        x:parent.width/3*2
+        x:parent.width/2
         color: "#007DC7"
         Text{
             anchors.centerIn: parent
@@ -199,7 +199,7 @@ Rectangle {
         visible: false
     }
 
-    WebView {
+    /*WebView {
         id: webview
         width: parent.width
         height:RootHeight/8
@@ -215,6 +215,17 @@ Rectangle {
                 request.action = WebView.IgnoreRequest;
                 // delegate request.url here
             }
+        }
+    }*/
+    Rectangle {
+        width: parent.width
+        height:RootHeight/8
+        y:RootHeight/8*7
+        color: "black"
+        Text{
+            anchors.centerIn: parent
+            text:"广告位"
+            color: "white"
         }
     }
     /*MouseArea{

@@ -3,5 +3,6 @@
         <file>MainUI.qml</file>
         <file>icon/ticon.png</file>
         <file>Settings.qml</file>
+        <file>icon/copy.png</file>
     </qresource>
 </RCC>
