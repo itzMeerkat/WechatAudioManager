@@ -1,8 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>MainUI.qml</file>
-        <file>icon/ticon.png</file>
         <file>Settings.qml</file>
         <file>icon/copy.png</file>
+        <file>img/bg.jpg</file>
     </qresource>
 </RCC>

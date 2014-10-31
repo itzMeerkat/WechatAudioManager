@@ -7,6 +7,11 @@ Rectangle {
     height:RootHeight
     id:root
 
+    Image{
+        source: "./img/bg.jpg"
+        anchors.fill: parent
+    }
+
     ListView{
         id:listview
         property int px
@@ -19,7 +24,11 @@ Rectangle {
         delegate: Rectangle{
             width:listview.width
             height:RootHeight/10
-            color:!(rank%2)?"#028098":"#8187C1"
+            color:"Transparent"
+            Rectangle{
+                opacity:!(rank%2)?0.8:0.6
+                anchors.fill: parent
+            }
 
             Text {
                 id:fd
@@ -29,19 +38,19 @@ Rectangle {
                 font.bold: true
                 verticalAlignment: Text.AlignVCenter
                 font.pointSize: 15
-                styleColor: "#ffffff"
-                color: "white"
+                //styleColor: "#ffffff"
+                //color: "white"
 
             }
             Text{
                 x:fd.width+50
                 text:createdTime
-                color: "white"
+                //color: "white"
                 font.family: "微软雅黑"
                 font.bold: true
                 verticalAlignment: Text.AlignVCenter
                 font.pointSize: 15
-                styleColor: "#ffffff"
+                //styleColor: "#ffffff"
             }
 
             Rectangle{
@@ -50,9 +59,11 @@ Rectangle {
                 height:parent.height/4*3
                 y:parent.height/8
                 x:parent.width-parent.height
+                color:"transparent"
                 Image{
                     anchors.fill: parent
                     source: "qrc:/icon/copy.png"
+
                 }
 
                 MouseArea{
@@ -79,28 +90,33 @@ Rectangle {
         width:parent.width/2
         height:parent.height/8
         y:parent.height/4*3
-        color:"#007DC7"
+        color:"Transparent"
+        Rectangle{
+            id:sbwbg
+            opacity: 0.8
+            anchors.fill: parent
+        }
         MouseArea{
             anchors.fill: parent
             onClicked: {
                 backend.searchAudioFile()
             }
             onPressed: {
-                parent.color="#B0BADD"
+                sbwbg.opacity=0.5
             }
             onReleased: {
-                parent.color="#007DC7"
+                sbwbg.opacity=0.8
             }
         }
         Text{
             anchors.centerIn: parent
             text:"搜索语音消息"
-            color: "white"
+            //color: "white"
             font.family: "微软雅黑"
             font.bold: true
             verticalAlignment: Text.AlignVCenter
             font.pointSize: 15
-            styleColor: "#ffffff"
+            //styleColor: "#ffffff"
         }
     }
     /*Rectangle{
@@ -137,24 +153,29 @@ Rectangle {
         height:parent.height/8
         y:parent.height/4*3
         x:parent.width/2
-        color: "#007DC7"
+        color:"Transparent"
+        Rectangle{
+            id:setwbg
+            opacity: 0.8
+            anchors.fill: parent
+        }
         Text{
             anchors.centerIn: parent
             text:"设置"
-            color: "white"
+            //color: "white"
             font.family: "微软雅黑"
             font.bold: true
             verticalAlignment: Text.AlignVCenter
             font.pointSize: 15
-            styleColor: "#ffffff"
+            //styleColor: "#ffffff"
         }
         MouseArea{
             anchors.fill: parent
             onPressed: {
-                parent.color="#B0BADD"
+                setwbg.opacity=0.5
             }
             onReleased: {
-                parent.color="#007DC7"
+                setwbg.opacity=0.8
             }
             onClicked: {
                 settingsView.visible=!settingsView.visible
@@ -164,9 +185,14 @@ Rectangle {
 
     //Header banner
     Rectangle{
+        Rectangle{
+            opacity: 0.8
+            anchors.fill: parent
+        }
         width:parent.width
         height:parent.height/9
-        color:"lightblue"
+        color:"Transparent"
+
         Text{
             height: parent.height
             width:parent.width/2
@@ -177,7 +203,7 @@ Rectangle {
             horizontalAlignment: Text.AlignHCenter
 
             font.pointSize: 19
-            color: "purple"
+            //color: "purple"
         }
         Text{
             height: parent.height
@@ -189,7 +215,7 @@ Rectangle {
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
             font.pointSize: 19
-            color: "purple"
+            //color: "purple"
         }
     }
 
