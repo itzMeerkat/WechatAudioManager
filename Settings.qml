@@ -25,7 +25,7 @@ Rectangle {
     height: RootHeight/3*2
     Image{
         anchors.fill: parent
-        source: "./img/bg.jpg"
+        source: "qrc:/img/bg.jpg"
     }
     Text{
         anchors.centerIn: parent

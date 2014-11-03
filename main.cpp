@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     context->setContextProperty("RootHeight",screen.height());
     context->setContextProperty("backend",&bkend);
     context->setContextProperty("AFIM",bkend.AFIM);
-    mainView->setSource(QUrl("qrc:MainUI.qml"));
+    mainView->setSource(QUrl("qrc:/qmls/MainUI.qml"));
     mainView->showFullScreen();
     return a.exec();
 }

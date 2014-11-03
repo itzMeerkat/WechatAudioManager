@@ -1,8 +1,11 @@
 <RCC>
     <qresource prefix="/">
-        <file>MainUI.qml</file>
-        <file>Settings.qml</file>
         <file>icon/copy.png</file>
         <file>img/bg.jpg</file>
+    </qresource>
+    <qresource prefix="/qmls">
+        <file>MainUI.qml</file>
+        <file>Settings.qml</file>
+        <file>TipsWindow.qml</file>
     </qresource>
 </RCC>

@@ -18,7 +18,8 @@
 */
 import QtQuick 2.2
 import QtQuick.Controls 1.2
-//import QtWebKit 3.0
+//import "D:/GitHub-pro/WechatAudioManager/"
+import "qrc:/qmls"
 
 Rectangle {
     width:RootWidth
@@ -26,7 +27,7 @@ Rectangle {
     id:root
 
     Image{
-        source: "./img/bg.jpg"
+        source: "qrc:/img/bg.jpg"
         anchors.fill: parent
     }
 
@@ -43,7 +44,6 @@ Rectangle {
             width:listview.width
             height:RootHeight/10
             color:"Transparent"
-            //border.color: "black"
             Rectangle{
                 opacity:rank%2?0.5:0.3;
                 anchors.fill: parent
@@ -57,19 +57,15 @@ Rectangle {
                 font.bold: true
                 verticalAlignment: Text.AlignVCenter
                 font.pointSize: 15
-                //styleColor: "#ffffff"
-                //color: "white"
 
             }
             Text{
                 x:fd.width+50
                 text:createdTime
-                //color: "white"
                 font.family: "微软雅黑"
                 font.bold: true
                 verticalAlignment: Text.AlignVCenter
                 font.pointSize: 15
-                //styleColor: "#ffffff"
             }
 
             Rectangle{
@@ -90,6 +86,7 @@ Rectangle {
                     anchors.fill: parent
                     onClicked: {
                         backend.copyFile(rank)
+                        show_anim.start()
                     }
                 }
             }
@@ -130,41 +127,12 @@ Rectangle {
         Text{
             anchors.centerIn: parent
             text:"搜索语音消息"
-            //color: "white"
             font.family: "微软雅黑"
             font.bold: true
             verticalAlignment: Text.AlignVCenter
             font.pointSize: 15
-            //styleColor: "#ffffff"
         }
     }
-    /*Rectangle{
-        id:copyButton
-        width:parent.width/3
-        height:parent.height/8
-        y:parent.height/4*3
-        x:parent.width/3
-        color: "#007DC7"
-        Text{
-            anchors.centerIn: parent
-            text:"待定"
-            color: "white"
-            font.family: "微软雅黑"
-            font.bold: true
-            verticalAlignment: Text.AlignVCenter
-            font.pointSize: 15
-            styleColor: "#ffffff"
-        }
-        MouseArea{
-            anchors.fill: parent
-            onPressed: {
-                parent.color="#B0BADD"
-            }
-            onReleased: {
-                parent.color="#007DC7"
-            }
-        }
-    }*/
 
     Rectangle{
         id:settingButton
@@ -181,12 +149,10 @@ Rectangle {
         Text{
             anchors.centerIn: parent
             text:"设置"
-            //color: "white"
             font.family: "微软雅黑"
             font.bold: true
             verticalAlignment: Text.AlignVCenter
             font.pointSize: 15
-            //styleColor: "#ffffff"
         }
         MouseArea{
             anchors.fill: parent
@@ -222,7 +188,6 @@ Rectangle {
             horizontalAlignment: Text.AlignHCenter
 
             font.pointSize: 19
-            //color: "purple"
         }
         Text{
             height: parent.height
@@ -240,28 +205,10 @@ Rectangle {
 
     Loader{
         id:settingsView
-        source: "qrc:/Settings.qml"
+        source: "qrc:/qmls/Settings.qml"
         visible: false
     }
 
-    /*WebView {
-        id: webview
-        width: parent.width
-        height:RootHeight/8
-        y:RootHeight/8*7
-        url: "file:/GitHub-pro/WechatAudioManager/banner.html"
-        //anchors.fill: parent
-        onNavigationRequested: {
-        // detect URL scheme prefix, most likely an external link
-            var schemaRE = /^\w+:/;
-            if (schemaRE.test(request.url)) {
-                request.action = WebView.AcceptRequest;
-            } else {
-                request.action = WebView.IgnoreRequest;
-                // delegate request.url here
-            }
-        }
-    }*/
     Rectangle {
         width: parent.width
         height:RootHeight/8
@@ -273,11 +220,45 @@ Rectangle {
             color: "white"
         }
     }
-    /*MouseArea{
-        z:50
-        anchors.fill: parent
-        onClicked: {
-            advBanner.url="./a.html"
+
+    Loader{
+        anchors.centerIn: parent
+        id:tip
+        source:"qrc:/qmls/TipsWindow.qml"
+        visible: false
+        Rectangle{
+            id:bg
+            anchors.fill: parent
+            color: "white"
+            opacity: 1
         }
-    }*/
+        NumberAnimation {
+            id: show_anim
+            target: bg
+            properties: "opacity"
+            from: 0
+            to: 0.6
+            loops: 1
+            onStarted: {
+                tip.visible=true
+            }
+        }
+        NumberAnimation {
+            id: close_anim
+            target: bg
+            properties: "opacity"
+            from: 0.6
+            to: 0
+            loops: 1
+            onStopped: {
+                tip.visible=false
+            }
+        }
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                close_anim.start()
+            }
+        }
+    }
 }
