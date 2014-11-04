@@ -43,3 +43,5 @@ android/
 *.user
 *.user.*
 android/res/drawable-hdpi/icon.png
+*.user
+WechatAudioManager.pro.user
