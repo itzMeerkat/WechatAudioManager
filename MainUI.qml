@@ -216,7 +216,7 @@ Rectangle {
         color: "black"
         Text{
             anchors.centerIn: parent
-            text:"广告位"
+            text:backend.getAd()
             color: "white"
         }
     }

@@ -2,6 +2,7 @@
     <qresource prefix="/">
         <file>icon/copy.png</file>
         <file>img/bg.jpg</file>
+        <file>tools/output.txt</file>
     </qresource>
     <qresource prefix="/qmls">
         <file>MainUI.qml</file>

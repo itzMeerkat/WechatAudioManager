@@ -18,7 +18,6 @@
 */
 #include "backend.h"
 
-
 #include<QDebug>
 Backend::Backend(QObject *parent) :
     QObject(parent)
@@ -152,4 +151,18 @@ void Backend::copyFile(QString ind)
 void Backend::slide(bool lor)
 {
     qDebug()<<lor;
+}
+
+QByteArray Backend::getAd()
+{
+    QDir dir(":/tools/output.txt");
+    QTime t;
+    t=QTime::currentTime();
+    qsrand(t.msec()+t.second()*1000);
+    adFile=new QFile(dir.absolutePath());
+
+    char buffer[1024];
+    adFile->open(QIODevice::ReadOnly);
+    while(adFile->readLine(buffer,1024)>0){adList.append(QString(buffer));}
+    return adList[qrand()%70].toUtf8();
 }

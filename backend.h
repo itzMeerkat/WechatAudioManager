@@ -28,6 +28,9 @@
 #include <QMediaPlayer>
 #include <QQueue>
 #include <QMessageBox>
+#include <QStringList>
+#include <QFile>
+#include <QDir>
 
 class Backend : public QObject
 {
@@ -42,6 +45,8 @@ signals:
 private:
     QMediaPlayer *player;
     QFileInfoList resList;
+    QStringList adList;
+    QFile *adFile;
     void findFile(QString);
     bool flag;
     QQueue<int> q;
@@ -56,6 +61,7 @@ public slots:
     void getDuration(qint64);
     void copyFile(QString);
     void slide(bool);
+    QByteArray getAd();
 };
 
 #endif // BACKEND_H
