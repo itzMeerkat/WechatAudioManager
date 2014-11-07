@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia quick network
+QT       += multimedia quick
+QT       -= gui core
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

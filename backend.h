@@ -60,7 +60,6 @@ public slots:
     void playSound(QString ind);
     void getDuration(qint64);
     void copyFile(QString);
-    void slide(bool);
     QByteArray getAd();
 };
 

@@ -214,10 +214,14 @@ Rectangle {
         height:RootHeight/8
         y:RootHeight/8*7
         color: "black"
+        opacity: 0.8
         Text{
             anchors.centerIn: parent
             text:backend.getAd()
             color: "white"
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.Wrap
         }
     }
 

@@ -137,7 +137,7 @@ void Backend::addItems()
 
 void Backend::copyFile(QString ind)
 {
-    qDebug()<<"!!!";
+    //qDebug()<<"!!!";
     int index=ind.toInt()-1;
     QDir myDir("/sdcard/");
     if(!QDir(myDir.absolutePath()+"WeChatAudioManager").exists())
@@ -146,11 +146,6 @@ void Backend::copyFile(QString ind)
 
     QFile::copy(resList[index].absoluteFilePath(),myDir.absolutePath()+"/"+resList[index].fileName());
     //QMessageBox::information(0,"文件拷贝成功","当前语音消息已拷贝至"+myDir.absolutePath()+"中！请用文件管理器查看！",QMessageBox::Yes);
-}
-
-void Backend::slide(bool lor)
-{
-    qDebug()<<lor;
 }
 
 QByteArray Backend::getAd()

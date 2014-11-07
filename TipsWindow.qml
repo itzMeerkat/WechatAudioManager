@@ -10,6 +10,7 @@ Rectangle{
         anchors.centerIn: parent
         text:"文件已复制到/sdcard/WeChatAudioManager中~\n戳我关闭"
         font.family: "微软雅黑"
+        horizontalAlignment: Text.AlignHCenter
         font.pointSize: 12
     }
 }
